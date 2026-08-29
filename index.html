@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Mobile-first responsive viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+  <title>Math Plus Minus — Kids Math Game</title>
+  <meta name="description" content="A fun offline math game for kids: addition and subtraction with step-by-step explanations." />
+  <meta name="theme-color" content="#FF9800" />
+
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icons/icon-192.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="icons/icon-192.svg" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ============ 1. GAME SELECT (first screen) ============ -->
+  <section id="screen-game" class="screen active">
+    <h1 class="app-title">Math <span class="plus">+</span> <span class="minus">−</span></h1>
+    <p class="subtitle">Pick your game!</p>
+    <div class="game-cards">
+      <button class="game-card add-card" data-game="add">
+        <span class="game-emoji">➕</span>
+        <span class="game-name">Addition</span>
+      </button>
+      <button class="game-card sub-card" data-game="sub">
+        <span class="game-emoji">➖</span>
+        <span class="game-name">Subtraction</span>
+      </button>
+    </div>
+    <p id="best-stats" class="best-stats"></p>
+
+    <!-- PWA install: native prompt when available, instructions otherwise -->
+    <button id="btn-install" class="btn-big btn-install">📲 Install App</button>
+    <p id="install-hint" class="ios-install-hint hidden"></p>
+  </section>
+
+  <!-- ============ 2. LEVEL SELECT ============ -->
+  <section id="screen-level" class="screen">
+    <button class="btn-back" id="btn-back-game">⬅ Back</button>
+    <h2 id="level-title" class="screen-title">Addition</h2>
+    <p class="subtitle">How many digits?</p>
+    <div class="level-buttons">
+      <button class="level-btn" data-level="1">1 digit<br /><small>up to 9</small></button>
+      <button class="level-btn" data-level="2">2 digits<br /><small>up to 99</small></button>
+      <button class="level-btn" data-level="3">3 digits<br /><small>up to 999</small></button>
+    </div>
+    <button id="btn-start" class="btn-big btn-primary" disabled>▶ Start</button>
+  </section>
+
+  <!-- ============ 3. QUESTION ============ -->
+  <section id="screen-question" class="screen">
+    <header class="game-hud">
+      <button class="btn-back" id="btn-quit">✖</button>
+      <div class="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
+      <div id="streak" class="streak" title="Streak">🔥 <span id="streak-count">0</span></div>
+    </header>
+
+    <div id="question-card" class="question-card">
+      <span id="q-num1">12</span>
+      <span id="q-operator">+</span>
+      <span id="q-num2">34</span>
+      <span class="q-eq">=</span>
+      <span id="q-answer-box" class="answer-box">?</span>
+    </div>
+
+    <div class="keypad">
+      <button class="key" data-key="1">1</button>
+      <button class="key" data-key="2">2</button>
+      <button class="key" data-key="3">3</button>
+      <button class="key" data-key="4">4</button>
+      <button class="key" data-key="5">5</button>
+      <button class="key" data-key="6">6</button>
+      <button class="key" data-key="7">7</button>
+      <button class="key" data-key="8">8</button>
+      <button class="key" data-key="9">9</button>
+      <button class="key key-action" data-key="back">⌫</button>
+      <button class="key" data-key="0">0</button>
+      <button class="key key-action" data-key="clear">C</button>
+    </div>
+
+    <button id="btn-submit" class="btn-big btn-primary">✓ Check</button>
+  </section>
+
+  <!-- ============ 4. RESULT / EXPLANATION ============ -->
+  <section id="screen-result" class="screen">
+    <div id="result-banner" class="result-banner">
+      <div id="result-emoji" class="result-emoji">🎉</div>
+      <h2 id="result-title">Correct!</h2>
+      <p id="result-answer"></p>
+    </div>
+    <div class="explain-card">
+      <h3>Let's see how 🧠</h3>
+      <ol id="explain-steps" class="explain-steps"></ol>
+    </div>
+    <button id="btn-next" class="btn-big btn-primary btn-pulse">Next Question ➜</button>
+  </section>
+
+  <!-- ============ 5. SESSION END ============ -->
+  <section id="screen-end" class="screen">
+    <div class="end-card">
+      <div class="result-emoji bounce">🏆</div>
+      <h2>Great job!</h2>
+      <p id="end-score"></p>
+      <p id="end-best"></p>
+      <button id="btn-again" class="btn-big btn-primary">🔁 Play Again</button>
+      <button id="btn-home" class="btn-big btn-secondary">🏠 Home</button>
+    </div>
+  </section>
+
+  <!-- Star-burst particles get injected here -->
+  <div id="fx-layer" class="fx-layer"></div>
+
+  <script src="math-engine.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
